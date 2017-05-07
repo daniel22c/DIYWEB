@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:fragment="head" lang="en">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"/>
+    <title>DIYWeb</title>
+</head>
+<body>
+<p><br><a href="/favorites">favorites</a></br>
+    <br><a href="/category">categories</a></br>
+</p>
+
+<nav th:fragment="nav" class="teal lighten-2">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="/DIYWEB/" class="brand-logo">DIYWeb</a>
+        <ul class="right">
+            <li><a href="/DIYWEB/favorites">favorites</a></li>
+            <li><a href="/DIYWEB/category">categories</a></li>
+            <li sec:authentication="name"></li>
+            <li>
+                <form th:action="@{/logout}" method="post" class="logout">
+                    <button type="submit"><i class="small material-icons">power_settings_new</i></button>
+                </form>
+            </li>
+        </ul>
+        <ul id="mobile-demo" class="side-nav">
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                    <li><a href="/DIYWEB/favorites">favorites</a></li>
+                    <li><a href="/DIYWEB/category">categories</a></li>
+                    <li sec:authentication="name"></li>
+                    <li>
+                        <form th:action="@{/logout}" method="post" class="logout">
+                            <button type="submit"><i class="small material-icons">power_settings_new</i></button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div th:fragment="categoryLeftPane">
+    <div class="col s12 m4 l3 white z-depth-2">
+        <ul class="collection with-header">
+            <li class="collection-header">DIY Categories</li>
+            <ul th:each="category : ${categories}" class="collection-item">
+                <li>
+                    <a th:href="@{'/category/'+${category.name}}" th:text="${category.name}">link to category</a>
+                </li>
+            </ul>
+        </ul>
+    </div>
+</div>
+
+<div th:fragment="flash" th:if="${flash != null}" class="container">
+    <div class="message">
+        <i class="right material-icons" data-close="">close</i>
+        <div th:classappend="${#strings.toLowerCase(flash.status)}" th:text="${flash.message}" class="flash"></div>
+    </div>
+</div>
+<div th:fragment="scripts">
+    <script>
+    $(document).ready(function(){
+        $(".button-collapse").sideNav();
+        $('select').material_select();
+    });
+    </script>
+</div>
+
+<div th:fragment="footer">
+    <footer class="footer-copyright">
+        <p>DIYWeb - Developed by Daniel Myungho Sim</p>
+    </footer>
+</div>
+</body>
+</html>

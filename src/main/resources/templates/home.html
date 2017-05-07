@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+<nav th:replace="layout :: nav"></nav>
+<div class="row">
+    <nav th:replace="layout :: categoryLeftPane"></nav>
+    <div class="col s12 m8 l9 white" >
+        <h2>DIY Topics</h2>
+        <ul class="collection">
+            <div th:each="diy : ${DIYs}" th:class="diy" >
+                <li class="collection-item"><a th:href="@{'/DIY-details/'+${diy.title}}" th:text="${#strings.replace(diy.title, '-', ' ')}"></a>
+                    <span th:text="${diy.category.name}" class="badge">DIY Category</span>
+                    <a th:href="@{'/addFavoriteDIY/'+${diy.title}}" class="badge"><i class="material-icons">grade</i></a>
+                </li>
+            </div>
+        </ul>
+        <div th:object="${newDIY}">
+            <form action="#" th:action="@{/DIYs}"  method="post" id="newDIYForm">
+                <i class="small material-icons">input</i>
+                <input type="text" th:field="*{title}" form="newDIYForm"/>
+
+            </form>
+            <select th:field="*{category}" form="newDIYForm">
+                <option value="" disabled="disabled">Select a category</option>
+                <option th:each="cat :${categories}" th:value="${cat.id}" th:text="${cat.name}">technology</option>
+            </select>
+        </div>
+
+    </div>
+</div> <!-- end of row-->
+
+<nav th:replace="layout :: footer"></nav>
+<nav th:replace="layout :: scripts"></nav>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+<nav th:replace="layout :: nav"></nav>
+<div class="row">
+    <nav th:replace="layout :: categoryLeftPane"></nav>
+    <div class="col s12 m8 l9 white" >
+        <h2>DIY topics displayed for <span th:text="${categoryName}"></span></h2>
+        <ul class="collection">
+            <div th:each="diy : ${diys}" th:class="diy" >
+                <li class="collection-item"><a th:href="@{'/DIY-details/'+${diy.title}}" th:text="${#strings.replace(diy.title, '-', ' ')}"></a>
+                    <span th:text="${diy.category.name}" class="badge">DIY Category</span>
+                    <a th:href="@{'/addFavoriteDIY/'+${diy.title}}" class="badge"><i class="material-icons">grade</i></a>
+                </li>
+            </div>
+        </ul>
+    </div>
+</div> <!-- end of row-->
+
+<nav th:replace="layout :: footer"></nav>
+<nav th:replace="layout :: scripts"></nav>
+</body>
+</html>

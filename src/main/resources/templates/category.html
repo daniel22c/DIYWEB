@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+<nav th:replace="layout :: nav"></nav>
+<div class="row">
+    <div class="col s12 m8 l9 white" >
+        <h2>DIYWEB Categories</h2>
+        <ul class="collection">
+            <div th:each="category : ${categories}">
+                <li class="collection-item">
+                    <a th:href="@{'/category/'+${category.name}}" th:text="${category.name}">link to category</a>
+                </li>
+            </div>
+            <li class="collection-item">
+                <form action="#" th:action="@{/category/add}" th:object="${newCategory}" method="post">
+                    <i class="small material-icons">input</i>Create New Category:
+                    <input type="text" th:field="*{name}" />
+                </form>
+            </li>
+        </ul>
+    </div>
+</div> <!-- end of row-->
+
+<nav th:replace="layout :: footer"></nav>
+<nav th:replace="layout :: scripts"></nav>
+</body>
+</html>
