@@ -8,6 +8,7 @@ import com.daniel22c.DIYWEB.service.CategoryService;
 import com.daniel22c.DIYWEB.service.DIYService;
 import com.daniel22c.DIYWEB.service.TaskService;
 import com.daniel22c.DIYWEB.service.UserService;
+import com.daniel22c.DIYWEB.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -80,7 +82,7 @@ public class TaskController {
     }
 
     @RequestMapping(path = "/DIY-details/{title}/mark", method = RequestMethod.POST)
-    public String toggleComplete(@PathVariable String title,@RequestParam Long id,Principal principal) {
+    public String toggleComplete(@PathVariable String title,@RequestParam Long id,Principal principal,RedirectAttributes redirectAttributes) {
 
 //<input type="hidden" name="diy" th:value="${diy}"/>
         User loggedUser = (User)((UsernamePasswordAuthenticationToken)principal).getPrincipal();
@@ -89,6 +91,9 @@ public class TaskController {
 
         //check if user has the task
         loggedUser.addOrRemoveTasks(id);
+        // Flash message
+        redirectAttributes.addFlashAttribute("flash",
+                new FlashMessage("Task has been toggled!", FlashMessage.Status.SUCCESS));
 
         userService.save(loggedUser);
         return "redirect:/DIY-details/"+title;
@@ -97,9 +102,12 @@ public class TaskController {
     //add new DIY task
     //DIY has tasks - add task to DIY
     @RequestMapping(path="/DIY-details/{title}", method = RequestMethod.POST)
-    public String addTask(@ModelAttribute Task task,@PathVariable String title, Principal principal) {
+    public String addTask(@ModelAttribute Task task,@PathVariable String title, Principal principal, RedirectAttributes redirectAttributes) {
         task.setDiy(diyService.findDIYByTitle(title));
         taskService.save(task);
+        // Flash message
+        redirectAttributes.addFlashAttribute("flash",
+                new FlashMessage("New Task submitted!", FlashMessage.Status.SUCCESS));
         return "redirect:/DIY-details/"+title;
     }
 }

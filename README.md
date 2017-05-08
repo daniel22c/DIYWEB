@@ -12,7 +12,7 @@
  - Display favorites and be able to save favorites for each user.
 
 [Technologies used]
-- Java Spring
+- Java Spring MVC
 - Hibernate
 - H2 Database
 - Tomcat
@@ -20,3 +20,8 @@
 [Implemented Features]
 - User Authentication and Roles with Java Security
 - CRUD operations using Spring and Hibernate
+
+[To be implemented]
+- REST API
+- External API Integration
+- Unit Testing with Junit and Mockito

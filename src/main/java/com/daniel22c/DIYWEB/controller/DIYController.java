@@ -6,6 +6,7 @@ import com.daniel22c.DIYWEB.model.User;
 import com.daniel22c.DIYWEB.service.CategoryService;
 import com.daniel22c.DIYWEB.service.DIYService;
 import com.daniel22c.DIYWEB.service.UserService;
+import com.daniel22c.DIYWEB.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
@@ -41,13 +43,15 @@ public class DIYController {
         return "home";
     }
     @RequestMapping(path = "/DIYs", method = RequestMethod.POST)
-    public String addDIY(@ModelAttribute DIY diy, Principal principal) {
+    public String addDIY(@ModelAttribute DIY diy, Principal principal, RedirectAttributes redirectAttributes) {
         DIY tempDIY = diyService.findDIYByTitle(diy.getTitle());
 
         if(tempDIY==null) { //save if DIY title is not already in DB
             diyService.save(diy);
+            // Flash message
+            redirectAttributes.addFlashAttribute("flash",
+                    new FlashMessage("New DIY title submitted!", FlashMessage.Status.SUCCESS));
         }
-
         return "redirect:/";
     }
 

@@ -10,6 +10,7 @@
         <h2>Task List</h2>
         <h2><span th:text="${'Category:'+diy.category.name}"></span></h2>
         <p>Check off a task when you complete it. Your progress will be saved.</p>
+        <div th:replace="layout :: flash"></div>
         <ul class="collection">
             <li th:each="task : ${tasks}" class="collection-item">
                 <form method="post" th:action="@{'/DIY-details/'+${diy.title}+'/mark'}" class="inline todo-item">

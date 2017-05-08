@@ -6,6 +6,7 @@
 <div class="row">
     <div class="col s12 m8 l9 white" >
         <h2>DIYWEB Categories</h2>
+        <div th:replace="layout :: flash"></div>
         <ul class="collection">
             <div th:each="category : ${categories}">
                 <li class="collection-item">
