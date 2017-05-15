@@ -1,11 +1,9 @@
 package com.daniel22c.DIYWEB;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.context.annotation.ComponentScan;
 
 
 //public class Application {
@@ -14,8 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
 //	}
 //}
 
-@EnableAutoConfiguration
-@ComponentScan(basePackages = "com.daniel22c.DIYWEB")
+//@EnableAutoConfiguration
+//@ComponentScan(basePackages = "com.daniel22c.DIYWEB")
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
